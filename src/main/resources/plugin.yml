@@ -1,0 +1,6 @@
+name: InfinityChat
+version: 1.0.0-SNAPSHOT
+authors: [GeneralSarcasam]
+main: dev.generalsarcasam.InfinityChat
+api-version: 1.16
+depend: [Vault, PlaceholderAPI]

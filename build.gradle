@@ -1,0 +1,62 @@
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group = 'dev.generalsarcasam'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = '15'
+targetCompatibility = '15'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'papermc-repo'
+        url = 'https://papermc.io/repo/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name = "sonatype-oss-snapshots"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+    maven {
+        url = 'https://jitpack.io'
+    }
+    maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
+
+}
+
+dependencies {
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly 'me.clip:placeholderapi:2.10.9'
+    api 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+shadowJar {
+    //Set archive name
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    minimize()
+}
+
+task copyJarToBin(type: Copy) {
+    from shadowJar
+    into "C:\\\\Users\\AlexChrystler\\Desktop\\Minecraft_Localhost\\plugins"
+}
